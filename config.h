@@ -25,6 +25,10 @@ static char *colors[][3] = {
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};	/* Tab bar modes (auto, never, always). Modes after showtab_nmodes are disabled. */
+static const int showtab	= showtab_auto;						/* Default tab bar show mode */
+static const int toptab 	= True;							/* False means tabs show up at the bottom of the screen */
+
 typedef struct {
 	const char *name;
 	const void *cmd;
@@ -132,7 +136,8 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_Tab,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	{ MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") },
-	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
+	/* { MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") }, */
+        { MODKEY,                       XK_w,           tabmode,        {-1} },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("st -e sudo nmtui") },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
@@ -254,9 +259,9 @@ static Key keys[] = {
 	{ 0, XF86XK_TouchpadOff,	spawn,		SHCMD("synclient TouchpadOff=1") },
 	{ 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") },
 	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("light -A 10") },
-	{ MODKEY, XF86XK_MonBrightnessUp,	spawn,	SHCMD("light -A 1") },
+	{ ShiftMask, XF86XK_MonBrightnessUp,	spawn,	SHCMD("light -A 1") },
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("light -U 10") },
-	{ MODKEY, XF86XK_MonBrightnessDown,	spawn,	SHCMD("light -U 1") },
+	{ ShiftMask, XF86XK_MonBrightnessDown,	spawn,	SHCMD("light -U 1") },
 
 	/* { MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } }, */
