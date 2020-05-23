@@ -171,7 +171,6 @@ struct Monitor {
 	int ntabs;
 	int tab_widths[MAXTABS];
  	const Layout *lt[2];
-	const Layout *lt[2];
 };
 
 typedef struct {
