@@ -26,7 +26,7 @@ static char *colors[][3] = {
 };
 
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};	/* Tab bar modes (auto, never, always). Modes after showtab_nmodes are disabled. */
-static const int showtab	= showtab_auto;						/* Default tab bar show mode */
+static const int showtab	= showtab_auto;			/* Default tab bar show mode */
 static const int toptab 	= True;							/* False means tabs show up at the bottom of the screen */
 
 typedef struct {
@@ -133,12 +133,14 @@ static Key keys[] = {
 	{ MODKEY,			XK_BackSpace,	spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("sysact") },
 
+  /* disabled cuz i only want tabmode auto all the time */
+  /*{ MODKEY,                       XK_w,           tabmode,        {-1} },*/
+
 	{ MODKEY,			XK_Tab,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_Tab,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	{ MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") },
-	/* { MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") }, */
-        { MODKEY,                       XK_w,           tabmode,        {-1} },
+	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("st -e sudo nmtui") },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
@@ -295,15 +297,16 @@ static Button buttons[] = {
 	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
 	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD("st -e nvim ~/.local/src/dwmblocks/config.h") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        defaultgaps,	{0} },
+	{ ClkClientWin,         MODKEY,         Button2,        defaultgaps,  	{0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkClientWin,		MODKEY,		Button4,	incrgaps,	{.i = +1} },
-	{ ClkClientWin,		MODKEY,		Button5,	incrgaps,	{.i = -1} },
+	{ ClkClientWin,		      MODKEY,     		Button4,      	incrgaps,     	{.i = +1} },
+	{ ClkClientWin,		      MODKEY,     		Button5,      	incrgaps,     	{.i = -1} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-	{ ClkTagBar,		0,		Button4,	shiftview,	{.i = -1} },
-	{ ClkTagBar,		0,		Button5,	shiftview,	{.i = 1} },
-	{ ClkRootWin,		0,		Button2,	togglebar,	{0} },
+	{ ClkTagBar,	        	0,          		Button4,      	shiftview,    	{.i = -1} },
+	{ ClkTagBar,	        	0,          		Button5,      	shiftview,    	{.i = 1} },
+	{ ClkRootWin,	        	0,          		Button2,      	togglebar,    	{0} },
+  { ClkTabBar,            0,              Button1,        focuswin,       {0} },        /* Switch to tab when clicked */
 };
